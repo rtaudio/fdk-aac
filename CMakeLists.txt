@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
-project(fdkaac)
+project(fdk-aac)
 
-set(INCS
+set(FDK_AAC_INCLUDES
 	libAACdec/include
 	libAACenc/include
 	libSBRdec/include
@@ -172,10 +172,10 @@ set(aac_enc_SOURCES aac-enc.c wavreader.c)
 
 if(WIN32)
 	add_compile_options(/EHsc /Dinline=__inline)
-	list(APPEND INCS win32)
+	list(APPEND FDK_AAC_INCLUDES win32)
 endif(WIN32)
 
-list(APPEND INCD ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND FDK_AAC_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR})
 
 
 add_library(AACdec ${AACDEC_SRC})
@@ -191,18 +191,18 @@ add_library(fdk-aac ${libfdk_aac_SOURCES})
 
 add_executable(aac-enc ${libfdk_aac_SOURCES} ${aac_enc_SOURCES})
 
-target_include_directories (AACdec PUBLIC ${INCS})
-target_include_directories (AACenc PUBLIC ${INCS})
-target_include_directories (FDK PUBLIC ${INCS})
-target_include_directories (MpegTPDec PUBLIC ${INCS})
-target_include_directories (MpegTPEnc PUBLIC ${INCS})
-target_include_directories (PCMutils PUBLIC ${INCS})
-target_include_directories (SBRdec PUBLIC ${INCS})
-target_include_directories (SYS PUBLIC ${INCS})
+target_include_directories (AACdec PUBLIC ${FDK_AAC_INCLUDES})
+target_include_directories (AACenc PUBLIC ${FDK_AAC_INCLUDES})
+target_include_directories (FDK PUBLIC ${FDK_AAC_INCLUDES})
+target_include_directories (MpegTPDec PUBLIC ${FDK_AAC_INCLUDES})
+target_include_directories (MpegTPEnc PUBLIC ${FDK_AAC_INCLUDES})
+target_include_directories (PCMutils PUBLIC ${FDK_AAC_INCLUDES})
+target_include_directories (SBRdec PUBLIC ${FDK_AAC_INCLUDES})
+target_include_directories (SYS PUBLIC ${FDK_AAC_INCLUDES})
 
-target_include_directories (fdk-aac PUBLIC ${INCS})
+target_include_directories (fdk-aac PUBLIC ${FDK_AAC_INCLUDES})
 
-target_include_directories (aac-enc PUBLIC ${INCS})
+target_include_directories (aac-enc PUBLIC ${FDK_AAC_INCLUDES})
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT aac-enc)
 
